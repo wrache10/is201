@@ -1,0 +1,68 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Game container */
+.game-container {
+    position: relative;
+    width: 600px;
+    height: 400px;
+    background-color: #111;
+    overflow: hidden;
+    margin: 50px auto;
+    border: 2px solid white;
+}
+
+/* Paddles */
+.paddle {
+    position: absolute;
+    width: 20px;
+    height: 100px;
+    background-color: white;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Left paddle */
+.paddle-left {
+    left: 10px;
+}
+
+/* Right paddle */
+.paddle-right {
+    right: 10px;
+}
+
+/* Ball */
+.ball {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+}
+
+/* Score */
+.score {
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+/* Winner */
+.winner {
+    color: white;
+    text-align: center;
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+#winner-text {
+    font-weight: bold;
+}

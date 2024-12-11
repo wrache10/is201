@@ -1,0 +1,355 @@
+/* General reset for margins and padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  background-color: rgb(227, 221, 221);
+}
+
+header {
+  background-color: #D2001C;
+  /* Light background color for the header */
+  padding: 20px 0;
+  /* Adds padding above and below the header */
+  border: 7px solid #FAAF19;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.header-image {
+  width: 100px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.text-container {
+  text-align: center;
+  flex-grow: 1;
+}
+
+.title {
+  font-size: 56px;
+  /* Size for the title */
+  font-weight: bold;
+}
+
+.motto {
+  font-size: 24px;
+  /* Smaller size for the motto */
+  font-style: italic;
+  /* Optional: adds italics to the motto */
+  margin-top: 10px;
+  /* Space between the title and motto */
+  color: black;
+  /* Grey color for the motto text */
+  font-weight: normal;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.sidebar {
+  background-color: #D2001C;
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  top: 154px;
+  left: 0;
+  padding: 15px;
+  box-sizing: border-box;
+  border: 7px solid #FAAF19;
+  z-index: 10;
+}
+
+.sidebar ul {
+  list-style-type: none;
+}
+
+.sidebar li {
+  margin: 10px 0;
+}
+
+.sidebar a {
+  color: black;
+  text-decoration: none;
+  padding: 10px;
+  display: block;
+  font-size: 24px;
+}
+
+.sidebar a:hover {
+  background-color: #FAAF19;
+}
+
+.main-content {
+  margin-left: 270px;
+  padding: 20px;
+  position: relative;
+  top: -160px;
+  z-index: 4;
+}
+
+.main-text {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.maintext-italic {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-style: italic;
+}
+
+.maintext-italic2 {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-style: italic;
+  font-size: 20px;
+  text-align: center;
+}
+
+.headings {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 42px;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.centerimages {
+  text-align: center;
+}
+
+.team-positions {
+  display: flex;
+  /* Use flexbox layout */
+  justify-content: space-between;
+  /* Distribute columns evenly */
+  padding: 20px;
+}
+
+.position {
+  width: 30%;
+  /* Each column takes up 30% of the container's width */
+}
+
+.forwards {
+  text-align: left;
+  /* Align forwards text to the left */
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 20px;
+}
+
+.defense {
+  text-align: center;
+  /* Align defense text to the center */
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 20px;
+}
+
+.goalies {
+  text-align: right;
+  /* Align goalies text to the right */
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 20px;
+}
+
+li {
+  font-size: 20px;
+  /* Adjust font size as needed */
+}
+
+ul {
+  list-style-type: none;
+  /* Optional: removes bullet points */
+  margin-left: 20px;
+  /* Adds indentation for nested lists */
+}
+
+ul ul {
+  margin-left: 40px;
+  /* More indentation for deeper levels */
+}
+
+.fontcolor {
+  color: #D2001C;
+}
+
+/* Initial hyperlink style */
+a {
+  color: #D2001C;
+  /* Set the color of the link */
+  text-decoration: none;
+  /* Optional: remove the underline */
+  font-size: 20px;
+  /* Set the initial text size */
+  transition: color 0.3s, font-size 0.3s;
+  /* Smooth transition for color and size */
+}
+
+/* Style when the link is hovered */
+a:hover {
+  color: black;
+  /* Change the color when hovered */
+  font-size: 22px;
+  /* Make the text bigger when hovered */
+}
+
+.bio {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 30px;
+  font-style: italic;
+  color: #D2001C;
+}
+
+.videodescription {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  color: black;
+}
+
+.image-gap {
+  display: flex;
+  gap: 70px;
+  /* Adds space between images */
+}
+
+.image-gap2 {
+  display: flex;
+  gap: 100px;
+}
+
+.box-model{
+  padding: 10px;
+  background-color: rgb(227, 221, 221);
+  border: 5px solid #FAAF19;
+  margin: 10px;
+  }
+
+  .social-icons a {
+    font-size: 50px;
+    margin: 20px;
+    margin-left: 15px;
+    text-decoration: none;
+    color: #D2001C;
+    transition: transform 0.3s ease, font-size 0.3 ease, text-decoration 0.3s ease;
+}
+.social-icons a:hover {
+    color: #FAAF19; /* Change the color when hovering */
+    transform: scale(1.3);
+    font-size: 60px;
+}
+
+.iframe {
+  width: 100%; /* Full width */
+  height: 1000px; /* Set a fixed height */
+  border: none; /* Remove border */
+}
+
+#nhl-standings {
+  width: 1000px; /* Full width */
+  height: 600px; /* Set a fixed height */
+  border: none; /* Remove border */
+  text-align: center;
+}
+
+.news{
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-style: italic;
+  color: black;
+  font-size: 28px;
+}
+
+#tableau {
+  width: 1216px; /* Full width */
+  height: 400px; /* Set a fixed height */
+  border: none; /* Remove border */
+  position: relative;
+  z-index: 3;
+  margin-bottom: 20px;
+}
+
+.footer{
+  bottom: 5px;
+  left: 5px;
+  right: 5px;
+  height: 25px;
+  padding-top: 15px;
+  background-color: #D2001C;
+}
+
+footer {
+  background-color: #D2001C; 
+  /* Same background color as header and sidebar */
+  color: black; 
+  /* Text color */
+  padding: 20px 0; 
+  /* Vertical padding for spacing */
+  border-top: 4px solid #FAAF19; 
+  /* Border color matching the header and sidebar */
+  display: flex; 
+  justify-content: center; 
+  /* Center the content horizontally */
+  align-items: center; 
+  /* Vertically align the content in the center */
+  margin-top: 20px; 
+  /* Adds some space above the footer */
+  position: fixed; 
+  /* Position the footer at the bottom of the page */
+  left: 0; 
+  right: 0; 
+  bottom: 0; 
+  width: 100%;
+  z-index: 5;
+}
+
+.footer-text {
+  font-size: 20px; 
+  /* Font size for the footer text */
+  font-weight: normal; 
+  /* Normal weight for the text */
+  text-align: center; 
+  /* Center text horizontally */
+}
+
+.footer-text a {
+  color: #FAAF19; 
+  /* Link color */
+  text-decoration: none; 
+  /* Remove underline from links */
+  font-weight: normal; 
+  /* Make links bold */
+  font-size: 18px;
+  transition: transform 0.3s ease, font-size 0.3 ease, text-decoration 0.3s ease;
+}
+
+.footer-text a:hover {
+  text-decoration: underline; 
+  /* Underline links when hovered */
+  transform: scale(1.3);
+  font-size: 21px;
+}
+
+.redblock {
+  background-color: #D2001C;
+  width: 250px;
+  height: 100vh;
+  position: sticky; /* Makes it stick as the user scrolls */
+  top: 0; /* It will stick to the top of the viewport when it reaches there */
+  left: 0;
+  border-left: 7px solid #FAAF19;
+  border-right: 7px solid #FAAF19;
+  z-index: 5;
+}
+
+.flameslogo{
+  top: 0;
+  left: 0;
+  position: sticky;
+  z-index: 1;
+  width: 165px;
+  padding: 0px;
+  margin: 0px;
+}

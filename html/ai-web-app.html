@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cross the Road Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Header Style */
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 30px;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            word-spacing: 10px;
+        }
+
+        /* Sidebar and Main Content Style */
+        .main-content {
+            display: flex;
+            flex: 1;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 200px;
+            background-color: #fff;
+            padding: 10px;
+            border: 2px solid #ccc;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Game Instructions Section */
+        .instructions {
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .instructions h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        /* Score, Level, and High Score Styling */
+        .score-board {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        /* Links Section */
+        .links {
+            margin-top: auto; /* Push the links to the bottom */
+            font-size: 14px;
+        }
+
+        .links a {
+            color: #007bff;
+            text-decoration: none;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+            color: rgb(143, 60, 191);
+            font-weight: bold;
+        }
+
+        /* Canvas Styling */
+        .game-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #447144;
+            border: 2px solid #333;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        canvas {
+            background-color: #87cefa;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Cross the Road
+    </header>
+
+    <div class="main-content">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Instructions Section -->
+            <div class="instructions">
+                <h3>Game Instructions</h3>
+                <p>Use the arrow keys to move the player:</p>
+                <ul>
+                    <li><strong>Arrow Up</strong> - Move up</li>
+                    <li><strong>Arrow Down</strong> - Move down</li>
+                    <li><strong>Arrow Left</strong> - Move left</li>
+                    <li><strong>Arrow Right</strong> - Move right</li>
+                </ul>
+                <p>Avoid the obstacles and reach the yellow finish line to level up!</p>
+            </div>
+
+            <!-- Score, Level, and High Score Section -->
+            <div class="score-board">
+                <strong>Score:</strong> <span id="score">0</span>
+            </div>
+            <div class="score-board">
+                <strong>Level:</strong> <span id="level">1</span>
+            </div>
+            <div class="score-board">
+                <strong>High Score:</strong> <span id="high-score">0</span>
+            </div>
+
+            <!-- Links Section -->
+            <div class="links">
+                <a href="../html/redmileupdate2.html">The Red Mile</a>
+                <a href="../index.html">Rachel Whitehead</a>
+            </div>
+        </div>
+
+        <!-- Game Canvas Area -->
+        <div class="game-container">
+            <canvas id="gameCanvas" width="400" height="600"></canvas>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const playerWidth = 30;
+        const playerHeight = 30;
+        const roadWidth = 400;
+        const roadHeight = 600;
+        const finishLineY = 50; // Finish line y-coordinate
+
+        let player = {
+            x: 185,
+            y: 550,
+            width: playerWidth,
+            height: playerHeight,
+            speed: 10,
+            color: 'green'
+        };
+
+        let obstacles = [
+            { x: 0, y: 100, width: 50, height: 20, speed: 3, direction: 1 },
+            { x: 0, y: 200, width: 60, height: 20, speed: 2, direction: 1 },
+            { x: 0, y: 300, width: 50, height: 20, speed: 4, direction: 1 },
+            { x: 0, y: 400, width: 70, height: 20, speed: 1, direction: 1 },
+            { x: 0, y: 500, width: 60, height: 20, speed: 2, direction: 1 } // New obstacle
+        ];
+
+        let finishLine = { y: finishLineY, width: roadWidth, height: 10 };
+
+        let level = 1; // Track game level
+        let score = 0; // Track score
+        let highScore = localStorage.getItem('highScore') ? parseInt(localStorage.getItem('highScore')) : 0; // Retrieve high score from localStorage
+
+        // Game Loop
+        function gameLoop() {
+            ctx.clearRect(0, 0, roadWidth, roadHeight);
+            drawPlayer();
+            moveObstacles();
+            drawObstacles();
+            drawFinishLine();
+            drawScoreAndLevel();
+            drawBorders();  // Draw borders of the game area
+            checkCollisions();
+            checkWinCondition();
+            requestAnimationFrame(gameLoop);
+        }
+
+        // Draw Player
+        function drawPlayer() {
+            ctx.fillStyle = player.color;
+            ctx.fillRect(player.x, player.y, player.width, player.height);
+        }
+
+        // Draw Obstacles
+        function drawObstacles() {
+            ctx.fillStyle = 'red';
+            for (let obstacle of obstacles) {
+                ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+            }
+        }
+
+        // Draw Finish Line
+        function drawFinishLine() {
+            ctx.fillStyle = 'yellow';
+            ctx.fillRect(0, finishLine.y, finishLine.width, finishLine.height);
+        }
+
+        // Draw Borders
+        function drawBorders() {
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 4;
+            ctx.strokeRect(0, 0, roadWidth, roadHeight); // Draw border around the entire game area
+        }
+
+        // Move Obstacles
+        function moveObstacles() {
+            for (let obstacle of obstacles) {
+                obstacle.x += obstacle.speed * obstacle.direction;
+                if (obstacle.x > roadWidth || obstacle.x < 0) {
+                    obstacle.direction *= -1; // Change direction
+                }
+            }
+        }
+
+        // Draw Score, Level, and High Score
+        function drawScoreAndLevel() {
+            document.getElementById('score').innerText = score;
+            document.getElementById('level').innerText = level;
+            document.getElementById('high-score').innerText = highScore; // Display high score
+        }
+
+        // Check Collisions
+        function checkCollisions() {
+            for (let obstacle of obstacles) {
+                if (
+                    player.x < obstacle.x + obstacle.width &&
+                    player.x + player.width > obstacle.x &&
+                    player.y < obstacle.y + obstacle.height &&
+                    player.y + player.height > obstacle.y
+                ) {
+                    alert('Game Over!');
+                    resetGame();
+                }
+            }
+        }
+
+        // Check Win Condition
+        function checkWinCondition() {
+            if (player.y <= finishLine.y + finishLine.height) {
+                score += 10; // Add score for crossing finish line
+                levelUp();
+                resetPlayerPosition(); // Reset player to the bottom after passing finish line
+            }
+        }
+
+        // Level Up and Increase Difficulty
+        function levelUp() {
+            level++;
+            player.speed += 2; // Increase player speed each level
+            obstacles.forEach(obstacle => {
+                obstacle.speed += 0.5; // Increase obstacle speed each level
+            });
+
+            // Add new obstacles as the game progresses
+            let numberOfNewObstacles = Math.floor(level / 2); // Add more obstacles as the level increases
+            for (let i = 0; i < numberOfNewObstacles; i++) {
+                // Ensure no new obstacles spawn above the finish line
+                let newY = Math.random() * (roadHeight - finishLine.y - player.height) + finishLine.y;
+                obstacles.push({ 
+                    x: 0, 
+                    y: newY, 
+                    width: 60, 
+                    height: 20, 
+                    speed: Math.random() * 3 + 2, 
+                    direction: 1 
+                });
+            }
+        }
+
+        // Update High Score
+        function updateHighScore() {
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('highScore', highScore); // Store high score in localStorage
+            }
+        }
+
+        // Reset the game after a collision
+        function resetGame() {
+            updateHighScore(); // Update high score at the end of the game
+            player.x = 185;
+            player.y = 550;
+            level = 1;
+            score = 0;
+            player.speed = 10;
+            obstacles = [
+                { x: 0, y: 100, width: 50, height: 20, speed: 3, direction: 1 },
+                { x: 0, y: 200, width: 60, height: 20, speed: 2, direction: 1 },
+                { x: 0, y: 300, width: 50, height: 20, speed: 4, direction: 1 },
+                { x: 0, y: 400, width: 70, height: 20, speed: 1, direction: 1 },
+                { x: 0, y: 500, width: 60, height: 20, speed: 2, direction: 1 }
+            ];
+        }
+
+        // Reset Player Position to the bottom of the screen
+        function resetPlayerPosition() {
+            player.y = roadHeight - player.height; // Reset to the bottom of the game screen
+            player.x = 185; // Keep horizontal position centered
+        }
+
+        // Handle Key Presses
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowUp' && player.y > 0) {
+                player.y -= player.speed;
+            }
+            if (e.key === 'ArrowDown' && player.y < roadHeight - player.height) {
+                player.y += player.speed;
+            }
+            if (e.key === 'ArrowLeft' && player.x > 0) {
+                player.x -= player.speed;
+            }
+            if (e.key === 'ArrowRight' && player.x < roadWidth - player.width) {
+                player.x += player.speed;
+            }
+        });
+
+        // Start the game loop
+        gameLoop();
+    </script>
+</body>
+</html>
